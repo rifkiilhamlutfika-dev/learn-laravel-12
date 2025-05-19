@@ -3,6 +3,7 @@
 use App\Http\Controllers\MovieController;
 use App\Http\Middleware\CheckMembership;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -101,4 +102,23 @@ Route::post("/request", function (Request $request) {
     }
 
     // return "apalah";
+});
+
+Route::get("/response", function () {
+    return response("ok")->header("content-type", 'plain/text');
+});
+
+Route::get("/cache-control", function () {
+    return Response::make("page allow to cache", 200)
+        ->header('cache-control', 'public, max-age=86400');
+});
+
+Route::middleware('cache.headers:public;max_age=1;etag')->group(function () {
+    Route::get('/privacy', function () {
+        return "privacy page";
+    });
+
+    Route::get('/terms', function () {
+        return "terms page";
+    });
 });
