@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Middleware\CheckMembership;
 use Illuminate\Http\Request;
@@ -121,4 +122,33 @@ Route::middleware('cache.headers:public;max_age=1;etag')->group(function () {
     Route::get('/terms', function () {
         return "terms page";
     });
+
+    Route::get("/dashboard", function () {
+        $user = "[
+            'name' => 'John Doe',
+            'email' => 'asijdijd@nemail.com',
+            'is_member' => true
+        ]";
+
+        return response('Login succesfuly', 200)->cookie('user', $user);
+    });
+
+    Route::get("/logout", function () {
+        // return response("logout successfuly", 200)
+        //     ->withoutCookie('user', null);
+
+        // return redirect()->route('home', ['src' => 'logout'])->withoutCookie('user');
+
+        return redirect()->action(
+            [HomeController::class, "index"],
+            ['authenticated' => false]
+        );
+    });
+
+    Route::get("/home", [HomeController::class, "index"])->name('home');
+});
+
+Route::get("/external", function () {
+    // return redirect()->away('https://www.youtube.com/live/vL7NnVupI7I?si=0rPKR3mNO2T19he3');
+    return redirect("/");
 });
