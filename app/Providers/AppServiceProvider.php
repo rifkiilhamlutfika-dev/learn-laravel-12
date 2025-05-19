@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Views\Composers\MenuComposer;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $menuItems = [
+            "Home" => "/",
+            "About" => "/about",
+            "Contact" => "/contact",
+        ];
+
+        // view()->share('menu', $menuItems);
+
+        // view()->composer(['movies.index', 'movies.show', 'home', '*'], function ($view) {
+        //     $view->with('menu', [
+        //         "Home" => "/",
+        //         "About" => "/about",
+        //         "Contact" => "/contact",
+        //     ]);
+        // });
+
+        View::composer('*', MenuComposer::class);
     }
 }

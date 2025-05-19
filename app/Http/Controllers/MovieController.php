@@ -13,11 +13,11 @@ class MovieController extends Controller implements HasMiddleware
 
     public static function middleware()
     {
-        return [
-            'isAuth',
-            // new ControllersMiddleware("isMember", only:['show', 'update', 'destroy']) //hanya
-            new ControllersMiddleware("isMember", except: ['index']) //kecuali
-        ];
+        // return [
+        //     'isAuth',
+        //     // new ControllersMiddleware("isMember", only:['show', 'update', 'destroy']) //hanya
+        //     new ControllersMiddleware("isMember", except: ['index']) //kecuali
+        // ];
     }
 
     public function __construct()
@@ -33,15 +33,24 @@ class MovieController extends Controller implements HasMiddleware
     public function index()
     {
         // return $this->movies;
-        return response()->json([
-            'message' => "successfuly get data",
-            'movies' => $this->movies,
-        ], 200);
+        // return response()->json([
+        //     'message' => "successfuly get data",
+        //     'movies' => $this->movies,
+        // ], 200);
+        $movies = $this->movies;
+        // return view("movies.index", ['movies' => $movies]);
+        // return view("movies.index", compact('movies')); //bakal cari nama yang sama
+        // return view("movies.index")->with('movies', $movies);
+        // return view("movies.index")->with(['movies' => $movies]);
+        return view("movies.index", compact('movies'))->with([
+            'titlePage' => "Movie list"
+        ]);
     }
 
     public function show($id)
     {
-        return $this->movies[$id];
+        $movie = $this->movies[$id];
+        return view("movies.show", ['movie' => $movie]);
     }
 
     public function store()

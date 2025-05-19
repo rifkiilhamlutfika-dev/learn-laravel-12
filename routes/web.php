@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/home-page', function () {
+    return view('home');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
