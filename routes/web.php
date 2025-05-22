@@ -8,7 +8,29 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/home-page', function () {
-    return view('home');
+    // return view('home');
+    $name = "<h1>laravel</h1>";
+    $user = [
+        'name' => "Rifki Ilham Lutfika",
+        'email' => "adaajalah@ms.com",
+        'role' => 'ka'
+    ];
+    $movieCategory = 'kaj';
+    $movies = [
+        ['title' => 'Boboiboy', 'year' => 2017],
+        ['title' => 'naruto', 'year' => 2002],
+        ['title' => 'dragon ball', 'year' => 1986],
+        ['title' => 'ejen ali', 'year' => 2015],
+        ['title' => 'upin ipin', 'year' => 2010],
+        ['title' => 'siamang tunggal', 'year' => 2011],
+        ['title' => 'avenger', 'year' => 2012],
+        ['title' => 'captain marvel', 'year' => 2019],
+        ['title' => 'end game', 'year' => 2019],
+        ['title' => 'cars', 'year' => 2006],
+        ['title' => 'tangled', 'year' => 2008],
+    ];
+
+    return view('home', compact(['name', 'user', 'movieCategory', 'movies']));
 });
 
 Route::get('/', function () {
@@ -28,15 +50,10 @@ Route::group([
     });
 
     Route::get("/", [MovieController::class, "index"]); //nama class -> terus method yang ingin dipakai
-
     Route::get("/{id}", [MovieController::class, "show"]); //->middleware(['isMember']);
-
     Route::post("/", [MovieController::class, "store"]);
-
     Route::put("/{id}", [MovieController::class, "update"]);
-
     Route::patch("/{id}", [MovieController::class, "update"]);
-
     Route::delete("/{id}", [MovieController::class, "destroy"]);
 });
 
