@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMovieRequest;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -134,7 +135,7 @@ class MovieController extends Controller implements HasMiddleware
         return view("movies.create");
     }
 
-    public function store(Request $request)
+    public function store(StoreMovieRequest $request)
     {
         $newMovie = [
             'title' => $request['title'],

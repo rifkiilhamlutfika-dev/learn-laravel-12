@@ -8,6 +8,8 @@
         <x-partials.sidebar :menus="[
             ['title' => 'Dashboard', 'link' => '/dashbord'],
             ['title' => 'Profile', 'link' => '/profile'],
+            ['title' => 'Movies', 'link' => '/movies'],
+            ['title' => 'Add Movies', 'link' => '/movies/create'],
             ['title' => 'Settings', 'link' => '/settings'],
         ]" />
     </x-slot>
