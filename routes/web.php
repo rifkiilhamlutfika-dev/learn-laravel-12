@@ -6,6 +6,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckMembership;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -284,3 +285,8 @@ Route::put('user/profile', [UserController::class, 'updateProfile']);
 Route::delete('user/profile', [UserController::class, 'deleteProfile']);
 
 Route::get('rating', [RatingController::class, 'index']);
+
+Route::get('attach-category', [MovieController::class, 'attachCategory']);
+Route::get('detach-category', [MovieController::class, 'detachCategory']);
+
+Route::get('sync-category', [MovieController::class, 'syncCategory']);

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMovieRequest;
+use App\Models\Category;
+use App\Models\Movie;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -175,5 +177,37 @@ class MovieController extends Controller implements HasMiddleware
     {
         unset($this->movies[$id]);
         return $this->index();
+    }
+
+    public function attachCategory()
+    {
+        $movie = Movie::find(1);
+        $movie->categories()->attach([3, 4]);
+
+        // $category = Category::find(3);
+        // $category->movies()->attach([1]);
+
+        // return $category->with('movies')->get();
+        return $movie->with('categories')->get();
+    }
+
+    public function detachCategory()
+    {
+        $movie = Movie::find(1);
+        // $movie->categories()->detach([4]);
+        $movie->categories()->detach(); //semua akan hilang categoris nya
+        return $movie->with('categories')->get();
+    }
+
+    public function syncCategory()
+    {
+        // intinya bisa digunakan untuk menambahkan dan menghapus data sekaligus
+        $movie = Movie::find(1);
+        $movie->categories()->sync([3, 4, 7]);
+
+        // $category = Category::find(3);
+        // $category->movies()->sync([1]);
+
+        return $movie->with('categories')->first();
     }
 }

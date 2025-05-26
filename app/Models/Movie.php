@@ -19,4 +19,9 @@ class Movie extends Model
     {
         return $this->hasMany(Rating::class);
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_movie', 'movie_id', 'category_id');
+    }
 }
