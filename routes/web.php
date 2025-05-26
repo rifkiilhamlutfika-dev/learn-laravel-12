@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckMembership;
 use Illuminate\Http\Request;
@@ -281,3 +282,5 @@ Route::post('user/profile', [UserController::class, 'createProfile']);
 Route::get('user/profile', [UserController::class, 'userProfile']);
 Route::put('user/profile', [UserController::class, 'updateProfile']);
 Route::delete('user/profile', [UserController::class, 'deleteProfile']);
+
+Route::get('rating', [RatingController::class, 'index']);
