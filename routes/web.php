@@ -253,3 +253,19 @@ Route::get("/external", function () {
     // return redirect()->away('https://www.youtube.com/live/vL7NnVupI7I?si=0rPKR3mNO2T19he3');
     return redirect("/");
 });
+
+Route::get('/session', function (Request $request) {
+    // $request->session()->put('is_membership', 'tidakkkk'); //bisa digunakan untuk simpan
+    // session([
+    //     'is_membership' => 'yes'
+    // ]);
+    // return session('is_membership');
+
+    session(['days' => ['friday', 'monday', 'wednesday']]);
+    session()->push('days', 'saturday');
+    session()->put('days', array_diff(session('days'), ['monday']));
+    session()->forget('days');
+    session()->put('is_membership', true);
+    session()->forget('is_membership');
+    return $request->session()->all();
+});
